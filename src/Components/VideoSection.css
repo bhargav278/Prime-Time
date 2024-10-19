@@ -1,0 +1,72 @@
+.teaser-container {
+  min-width: 400px;
+  max-width: 350px;
+  /* position: relative; */
+}
+
+.teaser-middle {
+  /* position: relative; */
+  width: 100%;
+  max-width: 400px;
+  height: auto;
+}
+
+.thumbnail-wrapper {
+  position: relative;
+  cursor: pointer;
+}
+
+.thumbnail-image {
+  width: 100%;
+  display: block;
+}
+
+.play-button {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 64px;
+  height: 64px;
+  background: url('https://img.icons8.com/ios-filled/100/ffffff/play--v1.png') no-repeat center center;
+  background-size: contain;
+  pointer-events: none;
+  /* Prevent click on the play button itself */
+}
+
+.teaser-video {
+  position: absolute;
+  top: 0;
+  left: 0;
+  background-color: black;
+  width: 70%;
+  width: 100%;
+  z-index: 100;
+  /* border: 2px solid red; */
+
+}
+
+.closeVideo {
+  position: absolute;
+  top: 10%;
+  right: 7%;
+  font-size: 40px;
+  font-weight: bold;
+  color: white;
+  cursor: pointer;
+  z-index: 100;
+  border: 1px solid white;
+  width: 60px;
+  height: 60px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 100;
+
+  border-radius: 50%;
+}
+
+.closeVideo:hover {
+  color: red;
+  border-color: red;
+}
