@@ -66,7 +66,7 @@ function Movie() {
       <HeroSection details={movieDetails} trailer={trailerData} />
       <CastSection details={creditsDetails?.cast} />
       <div className="relative my-10">
-        <div className="mx-28 my-10 text-3xl">Videos</div>
+        <div className="sm:mx-28 my-10 text-3xl">Videos</div>
         <VideoSectionContainer data={videoDetails} />
       </div>
       <ImageSection data={imageDetails} />
