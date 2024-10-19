@@ -33,30 +33,25 @@ function AllMovies() {
     fetchData();
   }, [page]);
 
-  // Debounce function to control how often the scroll handler is triggered
-  const debounce = (func, wait) => {
-    let timeout;
-    return function(...args) {
-      clearTimeout(timeout);
-      timeout = setTimeout(() => func.apply(this, args), wait);
-    };
-  };
-
   // Infinite scroll logic
   useEffect(() => {
-    const handleScroll = debounce(() => {
-      const scrollTop = document.documentElement.scrollTop || document.body.scrollTop;
+    const handleScroll = () => {
+      // Get the scroll values for both documentElement and body to handle various devices
+      const scrollTop = window.scrollY || document.documentElement.scrollTop || document.body.scrollTop;
       const scrollHeight = document.documentElement.scrollHeight || document.body.scrollHeight;
-      const clientHeight = document.documentElement.clientHeight || document.body.clientHeight;
+      const clientHeight = window.innerHeight || document.documentElement.clientHeight || document.body.clientHeight;
+
+      // Log scroll values for debugging
+      console.log({ scrollTop, scrollHeight, clientHeight });
 
       // Check if the user has scrolled to the bottom of the page
       if (scrollTop + clientHeight >= scrollHeight - 50 && hasMore && !loading) {
         setPage(prevPage => prevPage + 1);
       }
-    }, 200); // Debounce the scroll event by 200ms
+    };
 
     window.addEventListener('scroll', handleScroll);
-    window.addEventListener('touchmove', handleScroll); // Add touchmove for mobile
+    window.addEventListener('touchmove', handleScroll); // For mobile touch scroll
 
     // Cleanup scroll event listener on component unmount
     return () => {
