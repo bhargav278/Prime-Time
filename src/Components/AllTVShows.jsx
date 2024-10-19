@@ -9,18 +9,13 @@ function AllTVShows() {
   const [loading, setLoading] = useState(false);
   const [hasMore, setHasMore] = useState(true);
 
-
   // Fetch data based on the page number
   const fetchData = async () => {
     try {
       setLoading(true);
-
-
-
       const response = await fetch(`${ALL_TV_URL + page}&api_key=${API_KEY}`);
       const result = await response.json();
       const newData = result.results || [];
-      // console.log(result);
 
       setData(prevData => [...prevData, ...newData]);
 
@@ -31,7 +26,6 @@ function AllTVShows() {
 
       setLoading(false);
     } catch (err) {
-
       setLoading(false);
     }
   };
@@ -43,7 +37,10 @@ function AllTVShows() {
   // Infinite scroll logic
   useEffect(() => {
     const handleScroll = () => {
-      const { scrollTop, scrollHeight, clientHeight } = document.documentElement;
+      // Get the scroll values for both documentElement and body to handle various devices
+      const scrollTop = window.scrollY || document.documentElement.scrollTop || document.body.scrollTop;
+      const scrollHeight = document.documentElement.scrollHeight || document.body.scrollHeight;
+      const clientHeight = window.innerHeight || document.documentElement.clientHeight || document.body.clientHeight;
 
       // Check if the user has scrolled to the bottom of the page
       if (scrollTop + clientHeight >= scrollHeight - 50 && hasMore && !loading) {
@@ -52,15 +49,19 @@ function AllTVShows() {
     };
 
     window.addEventListener('scroll', handleScroll);
+    window.addEventListener('touchmove', handleScroll); // For mobile touch scroll
 
     // Cleanup scroll event listener on component unmount
-    return () => window.removeEventListener('scroll', handleScroll);
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+      window.removeEventListener('touchmove', handleScroll);
+    };
   }, [loading, hasMore]);
 
   return (
     <div className='pt-20 flex gap-3 flex-wrap justify-center items-center w-full px-0'>
       {data.map((ele, idx) => (
-        <Link to={`/watch/0/${ele.id}`} key={idx} className=' sm:w-2/12 sm:pl-4'>
+        <Link to={`/watch/0/${ele.id}`} key={idx} className='sm:w-2/12 sm:pl-4'>
           <SlideCard data={ele} rate={false} />
         </Link>
       ))}
@@ -80,11 +81,8 @@ function AllTVShows() {
           <div className="h-8 w-48 bg-gray-600 rounded-md animate-pulse mx-auto"></div>
         </div>
       )}
-
-
     </div>
-  )
-
+  );
 }
 
-export default AllTVShows
+export default AllTVShows;
