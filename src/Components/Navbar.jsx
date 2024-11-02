@@ -7,7 +7,7 @@ import { IoMenu } from "react-icons/io5";
 function Navbar() {
   const { show, setShow } = useContext(SelectionContext);
   const [name, setName] = useState("");
-  const [pos, setPos] = useState(false)
+  const [pos, setPosition] = useState(false)
 
   function handleClick() {
     setShow(prev => !prev)
@@ -48,10 +48,10 @@ function Navbar() {
         </div>
       </div>
       <div className='sm:hidden'>
-        <IoMenu onClick={() => { setPos(true) }} className='h-9 w-9' />
+        <IoMenu onClick={() => { setPosition(true) }} className='h-9 w-9' />
       </div>
       <div className={(pos) ? `w-full duration-500  flex absolute top-0 right-0 sm:hidden backdrop-blur-md bg-black/80 pt-48  ` : `w-full  flex absolute top-0 right-full sm:hidden backdrop-blur-md bg-black/80 pt-48  duration-500 `}>
-        <button onClick={() => { setPos(false) }} className='w-1/12 hover:text-red-500 absolute text-2xl top-5 z-50 bg-black right-10 p-2'>X</button>
+        <button onClick={() => { setPosition(false) }} className='w-1/12 hover:text-red-500 absolute text-2xl top-5 z-50 bg-black right-10 p-2'>X</button>
         <div className='  flex-col w-full absolute text-3xl top-10 '>
           <h1 className='hover:text-red-500 text-center cursor-pointer mb-3 '><Link to="/movies">Movies</Link></h1>
           <h1 className='hover:text-red-500 text-center cursor-pointer  mb-3'><Link to="/tvshows">TVShows</Link></h1>

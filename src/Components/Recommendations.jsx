@@ -1,6 +1,6 @@
 import RecommendationsSkeleton from './Skeletons/RecommendationsSkeleton';
 import SlideCard from './SlideCard';
-import { useNavigate, useParams } from 'react-router-dom';
+import { Link, useNavigate, useParams } from 'react-router-dom';
 import { useEffect, useRef } from 'react';
 
 // type 0 - tvshow
@@ -14,13 +14,13 @@ function Recommendations({ rData, title, type = 1 }) {
     const { showId } = useParams();
     check = showId;
   }
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
   
   const scrollContainerRef = useRef(null); 
 
-  const handleCardClick = (change) => {
-    navigate(`/watch/${type}/${change}`);
-  };
+  // const handleCardClick = (change) => {
+  //   navigate(`/watch/${type}/${change}`);
+  // };
 
   useEffect(() => {
     if (scrollContainerRef.current) {
@@ -36,17 +36,18 @@ function Recommendations({ rData, title, type = 1 }) {
         className="flex gap-3 overflow-scroll scrollbar-hide"
       >
         {rData.map((card) => (
-          <div
+          <Link
+            to={`/watch/${type}/${card.id}`}
             className="cursor-pointer"
             key={card.id}
-            onClick={() => handleCardClick(card.id)}
+           
           >
             <SlideCard
               className="min-w-[200px] border"
               data={card}
               rate={false}
-            />
-          </div>
+           />
+          </Link>
         ))}
       </div>
     </div>
